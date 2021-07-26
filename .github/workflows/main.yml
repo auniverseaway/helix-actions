@@ -12,5 +12,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: "Install API packages"
+        uses: actions/setup-node@v2
+        working-directory: ./psi
+      - run: npm install
       - name: Use local PSI
         uses: ./psi
