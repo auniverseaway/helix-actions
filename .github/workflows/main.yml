@@ -13,4 +13,4 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Use local PSI
-        uses: ../actions/psi
+        uses: ./psi
