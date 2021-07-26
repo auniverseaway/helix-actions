@@ -1,0 +1,32 @@
+name: "Page Speed Insights"
+
+description: "consume the output of the previous action and create a new issue in the repository"
+
+inputs:
+  lh:
+    description: "Fail the build if the threshold is not met."
+    default: 90
+  fcp:
+    description: "Fail the build if the threshold is not met."
+    default: 1.8
+  lcp:
+    description: "Fail the build if the threshold is not met."
+    default: 2.5
+  tbt:
+    description: "Fail the build if the threshold is not met."
+    default: 200
+  cls:
+    description: "Fail the build if the threshold is not met."
+    default: 0.1
+  repo-token: 
+    description: "Token with permissions to do repo things"
+
+runs:
+  steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+    - run: npm install
+  using: "node12"
+  main: "psi.js"
