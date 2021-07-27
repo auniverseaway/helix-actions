@@ -4,4 +4,4 @@ COPY . .
 
 RUN npm install --production
 
-ENTRYPOINT ["node", "/psi/psi.js"]
+ENTRYPOINT ["node", "./psi.js"]
