@@ -4,6 +4,7 @@ const github = require('@actions/github');
 async function run() {
   try {
     const token = core.getInput('repo-token');
+    console.log(token);
     const octokit = new github.getOctokit(token);
 
     const lh = '100';
