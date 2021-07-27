@@ -18,7 +18,8 @@ inputs:
   cls:
     description: "Fail the build if the threshold is not met."
     default: 0.1
-  repo-token: 
+  repo-token:
+    default: ${{secrets.GITHUB_TOKEN}}
     description: "Token with permissions to do repo things"
 
 runs:

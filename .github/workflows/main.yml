@@ -20,5 +20,3 @@ jobs:
       - run: npm --prefix ./psi install ./psi
       - name: Use local PSI
         uses: ./psi
-        with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
