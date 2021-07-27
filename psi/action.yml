@@ -24,4 +24,5 @@ inputs:
 
 runs:
   using: "node12"
-  main: "psi.js"
+  pre: 'pre.js'
+  main: 'psi.js'
