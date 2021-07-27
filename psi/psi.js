@@ -1,9 +1,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-function getBadge (value, color) {
-    const label = Object.keys({value})[0].toUpperCase();
-    return `![Lighthouse](https://img.shields.io/badge/${label}-${value}-${color}?style=flat-square)`;
+function getBadge (label, value, color) {
+    return `![${label}](https://img.shields.io/badge/${label}-${value}-${color}?style=flat-square)`;
 };
 
 async function run() {
@@ -27,7 +26,7 @@ async function run() {
     const cls = '0.001';
     const clsColor = 'brightgreen';
 
-    const body = `${getBadge(lh, lhColor)} ![First Contentful Paint](https://img.shields.io/badge/FCP-${fcp}-${fcpColor}?style=flat-square) ![Largest Contentful Pain](https://img.shields.io/badge/LCP-${lcp}-${lcpColor}?style=flat-square) ![Total Blocking Time](https://img.shields.io/badge/TBT-${tbt}-${tbtColor}?style=flat-square) ![Cumulative Layout Shift](https://img.shields.io/badge/CLS-${cls}-${clsColor}?style=flat-square)`;
+    const body = `${getBadge('LH', lh, lhColor)} ${getBadge('FCP', fcp, fcpColor)} ${getBadge('LCP', lcp, lcpColor)} ${getBadge('TBT', tbt, tbtColor)} ${getBadge('CLS', cls, clsColor)}`;
 
     const issue_number = github.context.payload.pull_request.number;
     const owner = github.context.repo.owner;

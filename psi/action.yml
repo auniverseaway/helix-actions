@@ -23,5 +23,5 @@ inputs:
     description: 'Token with permissions to do repo things'
 
 runs:
-  using: 'node12'
-  main: 'psi.js'
+  using: 'docker'
+  image: 'Dockerfile'

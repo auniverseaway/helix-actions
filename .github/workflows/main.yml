@@ -15,8 +15,5 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Install Node modules
-        uses: actions/setup-node@v2
-      - run: npm --prefix ./psi install ./psi
       - name: Use local PSI
         uses: ./psi
