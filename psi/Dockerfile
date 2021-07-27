@@ -2,6 +2,6 @@ FROM node:14.4.0-buster-slim
 
 COPY . .
 
-RUN npm install
+RUN npm install --production
 
-ENTRYPOINT ["node", "psi.js"]
+ENTRYPOINT ["node", "/psi/psi.js"]
