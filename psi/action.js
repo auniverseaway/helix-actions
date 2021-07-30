@@ -34,8 +34,8 @@ async function run() {
     const { ref } = github.context.payload.pull_request.head;
     const { name } = github.context.payload.pull_request.head.repo;
     const { login } = github.context.payload.pull_request.user;
-    // const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
-    const url = 'https://www.adobe.com/';
+    const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
+    // const url = 'https://www.adobe.com/';
 
     const { lh, fcp, lcp, tbt, cls } = await getPsi(url, psiKey);
     const results = getResults(lh, fcp, lcp, tbt, cls);
