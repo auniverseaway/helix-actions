@@ -1,9 +1,6 @@
-name: JS Actions
+name: Run Helix PSI Audit
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -15,5 +12,5 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Use local PSI
+      - name: Use local PSI action
         uses: ./psi

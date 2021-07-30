@@ -21,6 +21,10 @@ inputs:
   repo-token:
     default: ${{ github.token }}
     description: 'Token with permissions to do repo things'
+  psi-key:
+    default: ${{ secrets.PSI_KEY }}
+  relative-url:
+    default: '/'
 
 runs:
   using: 'docker'
