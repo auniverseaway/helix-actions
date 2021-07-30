@@ -21,8 +21,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Use Helix PSI action
+      - name: Use repo PSI action
         uses: auniverseaway/helix-actions/psi@main
+
 ```
 
 ### Testing
