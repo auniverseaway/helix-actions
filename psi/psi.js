@@ -18,11 +18,11 @@ async function run() {
 
     const relativeUrl = core.getInput('relative-url');
 
-    const { ref } = github.context.payload.pull_request.head;
-    const { name } = github.context.payload.pull_request.head.repo.name;
-    const { login } = github.event.pull_request.user;
+    // const { ref } = github.context.payload.pull_request.head;
+    // const { name } = github.context.payload.pull_request.head.repo.name;
+    // const { login } = github.event.pull_request.user;
 
-    const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
+    // const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
 
     console.log(url);
 
