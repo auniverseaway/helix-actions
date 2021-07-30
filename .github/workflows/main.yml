@@ -15,3 +15,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Use local PSI action
         uses: ./psi
+        with:
+          psi-key: ${{ secrets.PSI_KEY }}
