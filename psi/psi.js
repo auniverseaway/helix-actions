@@ -17,6 +17,8 @@ async function run() {
     const { login } = github.context.payload.pull_request.user;
     const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
 
+    console.log(url);
+
     const { lh, fcp, lcp, tbt, cls } = await getPsi(url, psiKey);
 
     const lhColor = 'brightgreen';
