@@ -24,7 +24,7 @@ async function run() {
 
     // const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
 
-    console.log(url);
+    // console.log(url);
 
     const { lh, fcp, lcp, tbt, cls } = await getPsi('https://www.adobe.com/express', psiKey);
 
