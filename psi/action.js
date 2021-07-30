@@ -49,7 +49,7 @@ async function run() {
         secondResults = await getSecondAttempt(url, psiKey);
     }
 
-    const body = buildBody(url, results, 1, true);
+    let body = buildBody(url, results, 1, true);
     if (secondResults) {
       body += buildBody(url, secondResults, 2, false);
     }
