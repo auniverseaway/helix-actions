@@ -12,7 +12,7 @@ function msToS(value) {
 }
 
 async function fetchPsiResult(url, key) {
-    const qs = { url, key };
+    const qs = { url, key, strategy: 'mobile' };
     const resp = await fetch(createUrl(PSI_URL, qs));
     const json = await resp.json();
     return json.lighthouseResult;
