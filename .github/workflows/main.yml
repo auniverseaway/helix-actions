@@ -2,6 +2,7 @@ name: Run Helix PSI Audit
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, edited]
     branches:
       - main
 
