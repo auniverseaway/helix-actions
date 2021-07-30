@@ -7,26 +7,20 @@ function getBadge (label, value, color) {
 };
 
 async function run() {
-  console.log(github.context.payload.pull_request.user.login);
   console.log(github.context.payload.pull_request.head.ref);
-  console.log(github.context.payload.pull_request.head.repo);
+  console.log(.name);
 
   try {
     const token = core.getInput('repo-token');
-
-    const octokit = new github.getOctokit(token);
-
     const psiKey = core.getInput('psi-key');
-
     const relativeUrl = core.getInput('relative-url');
 
-    // const { ref } = github.context.payload.pull_request.head;
-    // const { name } = github.context.payload.pull_request.head.repo.name;
-    // const { login } = github.event.pull_request.user;
+    const { ref } = github.context.payload.pull_request.head;
+    const { name } = github.context.payload.pull_request.head.repo;
+    const { login } = github.context.payload.pull_request.user;
+    const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
 
-    // const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
-
-    const { lh, fcp, lcp, tbt, cls } = await getPsi('https://www.adobe.com/express', psiKey);
+    const { lh, fcp, lcp, tbt, cls } = await getPsi(url, psiKey);
 
     const lhColor = 'brightgreen';
     const fcpColor = 'brightgreen';
@@ -34,11 +28,15 @@ async function run() {
     const tbtColor = 'brightgreen';
     const clsColor = 'brightgreen';
 
-    const body = `${getBadge('LH', lh, lhColor)} ${getBadge('FCP', fcp, fcpColor)} ${getBadge('LCP', lcp, lcpColor)} ${getBadge('TBT', tbt, tbtColor)} ${getBadge('CLS', cls, clsColor)}`;
+    const body = 
+    `Test: [${url}](${url})
+    ${getBadge('LH', lh, lhColor)} ${getBadge('FCP', fcp, fcpColor)} ${getBadge('LCP', lcp, lcpColor)} ${getBadge('TBT', tbt, tbtColor)} ${getBadge('CLS', cls, clsColor)}`;
 
     const issue_number = github.context.payload.pull_request.number;
     const owner = github.context.repo.owner;
     const repo = github.context.repo.repo;
+
+    const octokit = new github.getOctokit(token);
     const comment = octokit.rest.issues.createComment({
       owner,
       repo,
