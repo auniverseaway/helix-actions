@@ -7,8 +7,9 @@ function getBadge (label, value, color) {
 };
 
 async function run() {
-  console.log(github.context.payload.sender.login);
-  console.log(github.context.payload);
+  console.log(github.context.payload.pull_request.sender.login);
+  console.log(github.context.payload.pull_request.head.ref);
+  console.log(github.context.payload.pull_request.head.repo);
 
   try {
     const token = core.getInput('repo-token');
