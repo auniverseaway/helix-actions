@@ -25,6 +25,8 @@ async function run() {
     const psiKey = core.getInput('psi-key');
     const relativeUrl = core.getInput('relative-url');
 
+    console.log(psiKey);
+
     const lhThreshold = core.getInput('lh');
     const fcpThreshold = core.getInput('fcp');
     const lcpThreshold = core.getInput('lcp');
@@ -35,7 +37,6 @@ async function run() {
     const { name } = github.context.payload.pull_request.head.repo;
     const { login } = github.context.payload.pull_request.user;
     const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
-    // const url = 'https://www.adobe.com/';
 
     const { lh, fcp, lcp, tbt, cls } = await getPsi(url, psiKey);
     const results = getResults(lh, fcp, lcp, tbt, cls);
