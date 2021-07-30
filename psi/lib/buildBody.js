@@ -5,10 +5,12 @@ function getBadge ({ label, value, color }) {
 };
 
 function buildBody(url, results, attempt) {
-    return `| Page Speed Insights Audit - Attempt ${attempt} |
+    return `
+| Page Speed Insights Audit - Attempt ${attempt} |
 | :--------- |
 | ${getBadge(results.lh)} ${getBadge(results.fcp)} ${getBadge(results.lcp)} ${getBadge(results.tbt)} ${getBadge(results.cls)} |
 | [View page](${url}) - [Run again](${PSI_HTML_URL}${encodeURI(url)}) |
+
 `;
 };
 
