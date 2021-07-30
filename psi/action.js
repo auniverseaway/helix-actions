@@ -49,9 +49,10 @@ async function run() {
         secondResults = await getSecondAttempt(url, psiKey);
     }
 
-    let body = buildBody(url, results, 1, true);
+    let body = '# ![Helix](https://raw.githubusercontent.com/auniverseaway/helix-actions/main/helix-logo.svg) Helix Actions';
+    body += buildBody(url, results, 1);
     if (secondResults) {
-      body += buildBody(url, secondResults, 2, false);
+      body += buildBody(url, secondResults, 2);
     }
 
     const issue_number = github.context.payload.pull_request.number;
