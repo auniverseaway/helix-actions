@@ -25,7 +25,7 @@ async function run() {
     const psiKey = core.getInput('psi-key');
     const relativeUrl = core.getInput('relative-url');
 
-    console.log(psiKey);
+    console.log(`PSI: ${psiKey}`);
 
     const lhThreshold = core.getInput('lh');
     const fcpThreshold = core.getInput('fcp');
