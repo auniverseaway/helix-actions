@@ -29,10 +29,10 @@ describe('Format Results', function() {
     });
 });
 
-describe('Fetch PSI', function() {
-    it('Responds with a result', async function() {
-        this.timeout(30000);
-        const psi = await fetchPsiResult('https://www.adobe.com/express', process.env.PSI_KEY);
-        assert.typeOf(psi, 'object');
-    });
-});
+// describe('Fetch PSI', function() {
+//     it('Responds with a result', async function() {
+//         this.timeout(30000);
+//         const psi = await fetchPsiResult('https://www.adobe.com/express', process.env.PSI_KEY);
+//         assert.typeOf(psi, 'object');
+//     });
+// });
