@@ -24,7 +24,7 @@ async function run() {
     const { lh, fcp, lcp, tbt, cls } = await getPsi(url, psiKey);
     
     const results = {
-      lh: { label: 'LH', value: lh, color: getColor('lh', lh) },
+      lh: { label: 'LH', value: lh, color: getColor('lh', lh, true) },
       fcp: { label: 'FCP', value: fcp, color: getColor('fcp', fcp) },
       lcp: { label: 'LCP', value: lcp, color: getColor('lcp', lcp) },
       tbt: { label: 'TBT', value: tbt, color: getColor('tbt', tbt) },

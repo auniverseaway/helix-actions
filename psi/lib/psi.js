@@ -3,8 +3,8 @@ const { fetch } = context({ alpnProtocols: [ALPN_HTTP1_1] });
 
 const PSI_URL = 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed';
 
-function roundCls(value) {
-    return Math.round((value + Number.EPSILON) * 1000) / 1000;
+function roundDecimal(value, amount) {
+    return Math.round((value + Number.EPSILON) * amount) / amount;
 };
 
 function msToS(value) {
@@ -20,10 +20,10 @@ async function fetchPsiResult(url, key) {
 
 function formatPsi({ categories, audits }) {
     const lh = Math.round(categories.performance.score * 100);
-    const fcp = msToS(audits['first-contentful-paint'].numericValue);
-    const lcp = msToS(audits['largest-contentful-paint'].numericValue);
-    const tbt = msToS(audits['total-blocking-time'].numericValue);
-    const cls = roundCls(audits['cumulative-layout-shift'].numericValue);
+    const fcp = roundDecimal(msToS(audits['first-contentful-paint'].numericValue), 100);
+    const lcp = roundDecimal(msToS(audits['largest-contentful-paint'].numericValue), 100);
+    const tbt = roundDecimal(msToS(audits['total-blocking-time'].numericValue), 100);
+    const cls = roundDecimal(audits['cumulative-layout-shift'].numericValue, 1000);
     return ({ lh, fcp, lcp, tbt, cls });
 }
 
@@ -34,7 +34,7 @@ async function getPsi(url, key) {
 };
 
 module.exports = {
-    roundCls,
+    roundDecimal,
     msToS,
     getPsi,
     fetchPsiResult,

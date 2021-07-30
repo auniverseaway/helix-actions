@@ -6,10 +6,10 @@ function getBadge ({ label, value, color }) {
 
 function buildBody(url, results) {
     return `# ![Helix](https://raw.githubusercontent.com/auniverseaway/helix-actions/main/helix-logo.svg) Helix Actions
-    | Page Speed Insights Audit |
-    | :--------- |
-    | ${getBadge(results.lh)} ${getBadge(results.fcp)} ${getBadge(results.lcp)} ${getBadge(results.tbt)} ${getBadge(results.cls)} |
-    | [View page](${url}) - [Run again](${PSI_HTML_URL}${encodeURI(url)}) |`;
+| Page Speed Insights Audit |
+| :--------- |
+| ${getBadge(results.lh)} ${getBadge(results.fcp)} ${getBadge(results.lcp)} ${getBadge(results.tbt)} ${getBadge(results.cls)} |
+| [View page](${url}) - [Run again](${PSI_HTML_URL}${encodeURI(url)}) |`;
 }
 
 module.exports = buildBody;

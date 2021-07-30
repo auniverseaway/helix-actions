@@ -1,16 +1,25 @@
 const { assert, expect } = require('chai');
 
-const { roundCls, msToS, fetchPsiResult, formatPsi } = require('../psi');
+const { roundDecimal, msToS, fetchPsiResult, formatPsi } = require('../psi');
 const { psiMock } = require('./psi.mock');
 
-describe('CLS', function() {
-    it('Should round up', function() {
-        const cls = roundCls(0.0817271912);
+describe('Rounding decimals', function() {
+    it('Should round up to three points', function() {
+        const cls = roundDecimal(0.0817271912, 1000);
         expect(cls).to.equal(0.082);
     });
-    it('Should round down', function() {
-        const cls = roundCls(0.0813271912);
+    it('Should round down to three points', function() {
+        const cls = roundDecimal(0.0813271912, 1000);
         expect(cls).to.equal(0.081);
+    });
+
+    it('Should round up to two points', function() {
+        const cls = roundDecimal(0.081, 100);
+        expect(cls).to.equal(0.08);
+    });
+    it('Should round down to two points', function() {
+        const cls = roundDecimal(0.086, 100);
+        expect(cls).to.equal(0.09);
     });
 });
 
