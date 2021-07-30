@@ -2,13 +2,14 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { getPsi } = require('./lib/psi');
 
-const PSI_URL = 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed';
-
 function getBadge (label, value, color) {
     return `![${label}](https://img.shields.io/badge/${label}-${value}-${color}?style=flat-square)`;
 };
 
 async function run() {
+  console.log(github.context.payload.sender.login);
+  console.log(github.context.payload);
+
   try {
     const token = core.getInput('repo-token');
 
@@ -24,18 +25,12 @@ async function run() {
 
     // const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
 
-    // console.log(url);
-
     const { lh, fcp, lcp, tbt, cls } = await getPsi('https://www.adobe.com/express', psiKey);
 
     const lhColor = 'brightgreen';
-
     const fcpColor = 'brightgreen';
-
     const lcpColor = 'brightgreen';
-
     const tbtColor = 'brightgreen';
-
     const clsColor = 'brightgreen';
 
     const body = `${getBadge('LH', lh, lhColor)} ${getBadge('FCP', fcp, fcpColor)} ${getBadge('LCP', lcp, lcpColor)} ${getBadge('TBT', tbt, tbtColor)} ${getBadge('CLS', cls, clsColor)}`;
