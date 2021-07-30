@@ -7,7 +7,7 @@ function getBadge (label, value, color) {
 };
 
 async function run() {
-  console.log(github.context.payload.pull_request.sender.login);
+  console.log(github.context.payload.pull_request.user.login);
   console.log(github.context.payload.pull_request.head.ref);
   console.log(github.context.payload.pull_request.head.repo);
 
