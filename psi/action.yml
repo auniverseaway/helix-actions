@@ -22,7 +22,6 @@ inputs:
     default: ${{ github.token }}
     description: 'Token with permissions to do repo things'
   psi-key:
-    default: ${{ secrets.PSI_KEY }}
     description: 'The Page Speed Insights key'
   relative-url:
     default: '/'
