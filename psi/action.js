@@ -60,6 +60,8 @@ async function run() {
     const owner = github.context.repo.owner;
     const repo = github.context.repo.repo;
 
+    console.log(issue_number, owner, repo);
+
     const octokit = new github.getOctokit(token);
     const comment = octokit.rest.issues.createComment({
       owner,
