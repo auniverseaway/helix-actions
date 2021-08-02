@@ -12,12 +12,10 @@ function msToS(value) {
 }
 
 async function fetchPsiResult(url, key) {
-    const qs = { url, key: 'AIzaSyBxPnPkkIal_riyIjD9cI4IO-512pabiMM', strategy: 'mobile' };
-    console.log(qs);
+    const qs = { url, strategy: 'mobile' };
+    if (key) { qs.key = key; }
     const resp = await fetch(createUrl(PSI_URL, qs));
-    console.log(resp);
     const json = await resp.json();
-    console.log(json);
     return json.lighthouseResult;
 };
 
