@@ -21,9 +21,6 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   const psi = await getPsi(url, psiKey);
   let attempt = {};
 
-  console.log(psi);
-  console.log(thresholds);
-
   // If there are results, compare and format them
   if (psi.results) {
     // See if thresholds have been met
@@ -35,8 +32,8 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
       attempt.threshold = true;
     }
     const formatted = formatResults(psi.results);
+    console.log(formatted);
     attempt.body = buildBody(url, formatted, attemptNo);
-    console.log(attempt);
   }
   // If there's a message, something died on the PSI side.
   if (psi.message) {
@@ -87,8 +84,6 @@ async function run() {
     attempts.forEach((attempt) => {
       body += attempt.body;
     });
-
-    console.log(body);
 
     // Get octokit for commenting
     const octokit = new github.getOctokit(token);
