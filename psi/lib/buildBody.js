@@ -5,7 +5,7 @@ function getBadge ({ label, value, color }) {
 };
 
 function getAttempt (attemptNo) {
-    return attempt ? `- Attempt ${attemptNo}` : '';
+    return attemptNo ? `- Attempt ${attemptNo}` : '';
 }
 
 function buildBody(url, results, attemptNo) {
