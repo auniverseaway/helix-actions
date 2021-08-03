@@ -46,9 +46,6 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
 
 async function run() {
   try {
-    // Get octokit for commenting
-    const octokit = new github.getOctokit(token);
-
     // Build URL
     const { ref } = github.context.payload.pull_request.head;
     const { name } = github.context.payload.pull_request.head.repo;
@@ -84,6 +81,9 @@ async function run() {
     attempts.forEach((attempt) => {
       body += attempt.body;
     });
+
+    // Get octokit for commenting
+    const octokit = new github.getOctokit(token);
 
     // Setup comment details
     const issue_number = github.context.payload.pull_request.number;
