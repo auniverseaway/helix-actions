@@ -16,7 +16,7 @@ function formatResults(lh, fcp, lcp, tbt, cls) {
   };
 }
 
-async function getPsiAttempt(url, psiKey, thresholds, attempt) {
+async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   // Get the PSI response from the library
   const psi = await getPsi(url, psiKey);
   let attempt = {};
@@ -31,7 +31,7 @@ async function getPsiAttempt(url, psiKey, thresholds, attempt) {
       attempt.threshold = true;
     }
     const formatted = formatResults(psi.results);
-    attempt.body = buildBody(url, formatted);
+    attempt.body = buildBody(url, formatted, attemptNo);
   }
   // If there's a message, something died on the PSI side.
   if (psi.message) {
