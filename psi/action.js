@@ -21,6 +21,9 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   const psi = await getPsi(url, psiKey);
   let attempt = {};
 
+  console.log(psi.results);
+  console.log(thresholds);
+
   // If there are results, compare and format them
   if (psi.results) {
     // See if thresholds have been met
@@ -42,7 +45,7 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   if (!attempt.body) {
     attempt.body = 'Something went wrong.';
   }
-
+  console.log(attempt);
   return attempt;
 }
 
@@ -74,6 +77,9 @@ async function run() {
 
     // First PSI attempt
     attempts.push(await getPsiAttempt(url, psiKey, thresholds));
+
+    console.log(attempts[0]);
+    console.log(attempts[0].threshold);
 
     // Second PSI attempt
     if (!attempts[0].threshold) {
