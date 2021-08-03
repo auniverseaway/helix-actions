@@ -46,16 +46,16 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
 
 async function run() {
   try {
+    // Get basic inputs
+    const token = core.getInput('repo-token');
+    const psiKey = core.getInput('psi-key');
+    const relativeUrl = core.getInput('relative-url');
+
     // Build URL
     const { ref } = github.context.payload.pull_request.head;
     const { name } = github.context.payload.pull_request.head.repo;
     const { login } = github.context.payload.pull_request.head.user;
     const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
-
-    // Get basic inputs
-    const token = core.getInput('repo-token');
-    const psiKey = core.getInput('psi-key');
-    const relativeUrl = core.getInput('relative-url');
 
     // Get thresholds of failure
     const thresholds = {
