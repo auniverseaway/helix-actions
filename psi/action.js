@@ -27,11 +27,11 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   // If there are results, compare and format them
   if (psi.results) {
     // See if thresholds have been met
-    if (psi.results.lh > thresholds.lh ||
-        psi.results.fcp < thresholds.fcp ||
-        psi.results.lcp < thresholds.lcp ||
-        psi.results.tbt < thresholds.tbt ||
-        psi.results.cls < thresholds.cls) {
+    if (psi.results.lh >= thresholds.lh &&
+        psi.results.fcp <= thresholds.fcp &&
+        psi.results.lcp <= thresholds.lcp &&
+        psi.results.tbt <= thresholds.tbt &&
+        psi.results.cls <= thresholds.cls) {
       attempt.threshold = true;
     }
     const formatted = formatResults(psi.results);
@@ -65,11 +65,11 @@ async function run() {
 
     // Get thresholds of failure
     const thresholds = {
-      lh: core.getInput('lh'),
-      fcp: core.getInput('fcp'),
-      lcp: core.getInput('lcp'),
-      tbt: core.getInput('tbt'),
-      cls: core.getInput('cls'),
+      lh: parseFloat(core.getInput('lh')),
+      fcp: parseFloat(core.getInput('fcp')),
+      lcp: parseFloat(core.getInput('lcp')),
+      tbt: parseFloat(core.getInput('tbt')),
+      cls: parseFloat(core.getInput('cls')),
     };
 
     // Setup attempts

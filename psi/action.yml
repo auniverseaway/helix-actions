@@ -14,7 +14,7 @@ inputs:
     default: 2.5
   tbt:
     description: 'Fail the build if the threshold is not met.'
-    default: 200
+    default: 0.2
   cls:
     description: 'Fail the build if the threshold is not met.'
     default: 0.1
