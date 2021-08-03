@@ -76,11 +76,11 @@ async function run() {
     let attempts = [];
 
     // First PSI attempt
-    attempts.push(getPsiAttempt(url, psiKey, thresholds));
+    attempts.push(await getPsiAttempt(url, psiKey, thresholds));
 
     // Second PSI attempt
     if (!attempts[0].threshold) {
-      attempts.push(getPsiAttempt(url, psiKey, thresholds, 2));
+      attempts.push(await getPsiAttempt(url, psiKey, thresholds, 2));
     }
 
     let body = COMMENT_HEADER;
