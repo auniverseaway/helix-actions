@@ -82,6 +82,8 @@ async function run() {
       body += attempt.body;
     });
 
+    console.log(body);
+
     // Get octokit for commenting
     const octokit = new github.getOctokit(token);
 
@@ -89,7 +91,7 @@ async function run() {
     const issue_number = github.context.payload.pull_request.number;
     const { repo } = github.context;
     const { owner } = repo;
-    const comment = octokit.rest.issues.createComment({ owner, repo, issue_number, body });
+    // const comment = octokit.rest.issues.createComment({ owner, repo, issue_number, body });
 
   } catch (error) {
     core.setFailed(error.message);
