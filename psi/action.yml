@@ -5,7 +5,7 @@ description: 'consume the output of the previous action and create a new issue i
 inputs:
   lh:
     description: 'Fail the build if the threshold is not met.'
-    default: 90
+    default: 100
   fcp:
     description: 'Fail the build if the threshold is not met.'
     default: 1.8
