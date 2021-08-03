@@ -1,7 +1,10 @@
 const { assert, expect } = require('chai');
 
-const { roundDecimal, msToS, fetchPsiResult, formatPsi } = require('../psi');
+const { roundDecimal, msToS, buildQuery, getPsi, formatPsi } = require('../psi');
 const { psiMock } = require('./psi.mock');
+
+const GOOD_URL = 'https://www.adobe.com/express';
+const BAD_URL = 'https://main--not-live--adobe.hlx3.page';
 
 describe('Rounding decimals', function() {
     it('Should round up to three points', function() {
@@ -31,17 +34,32 @@ describe('MS to S', function() {
 });
 
 describe('Format Results', function() {
-    const results = formatPsi(psiMock.lighthouseResult);
+    const psi = formatPsi(psiMock.lighthouseResult);
     it('LH result', function() {
         const s = msToS(2500);
-        expect(results.lh).to.equal(91);
+        expect(psi.results.lh).to.equal(91);
     });
 });
 
-// describe('Fetch PSI', function() {
-//     it('Responds with a result', async function() {
-//         this.timeout(30000);
-//         const psi = await fetchPsiResult('https://www.adobe.com/express', process.env.PSI_KEY);
-//         assert.typeOf(psi, 'object');
-//     });
-// });
+describe('Query Builder', function() {
+    const psi = formatPsi(psiMock.lighthouseResult);
+    it('Should not add key', function() {
+        const qs = buildQuery(GOOD_URL);
+        expect(qs.key).to.be.undefined;
+    });
+});
+
+describe('Fetch PSI', function() {
+    it('Responds with a result', async function() {
+        this.timeout(30000);
+        const psi = await getPsi(GOOD_URL, process.env.PSI_KEY);
+        expect(psi.code).to.equal(200);
+    });
+
+    it('Handles a bad URL', async function() {
+        this.timeout(30000);
+        const psi = await getPsi(BAD_URL, process.env.PSI_KEY);
+        expect(psi.code).to.equal(500);
+        expect(psi.message).to.contain('Lighthouse returned error:');
+    });
+});
