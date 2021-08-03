@@ -23,11 +23,11 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   // If there are results, compare and format them
   if (psi.results) {
     // See if thresholds have been met
-    if (lh.value > thresholds.lh ||
-        fcp.value < thresholds.fcp ||
-        lcp.value < thresholds.lcp ||
-        tbt.value < thresholds.tbt ||
-        cls.value < thresholds.cls) {
+    if (psi.results.lh > thresholds.lh ||
+        psi.results.fcp < thresholds.fcp ||
+        psi.results.lcp < thresholds.lcp ||
+        psi.results.tbt < thresholds.tbt ||
+        psi.results.cls < thresholds.cls) {
       attempt.threshold = true;
     }
     const formatted = formatResults(psi.results);
