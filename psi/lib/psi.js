@@ -37,7 +37,7 @@ function formatPsi({ categories, audits }, code) {
     const lh = Math.round(categories.performance.score * 100);
     const fcp = roundDecimal(msToS(audits['first-contentful-paint'].numericValue), 100);
     const lcp = roundDecimal(msToS(audits['largest-contentful-paint'].numericValue), 100);
-    const tbt = roundDecimal(msToS(audits['total-blocking-time'].numericValue), 100);
+    const tbt = audits['total-blocking-time'].numericValue;
     const cls = roundDecimal(audits['cumulative-layout-shift'].numericValue, 1000);
     return ({code, results: { lh, fcp, lcp, tbt, cls }});
 }
