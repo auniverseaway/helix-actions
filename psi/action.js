@@ -16,7 +16,7 @@ async function run() {
     const { name } = github.context.payload.pull_request.head.repo;
     const { login } = github.context.payload.pull_request.head.user;
     // const url = 'https://www.adobe.com/';
-    const url = `https://${ref}--${name}--${login}.hlx.page${relativeUrl}`;
+    const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
 
     // Get thresholds of failure
     const thresholds = {
@@ -31,11 +31,13 @@ async function run() {
     let attempts = [];
 
     // First PSI attempt
-    attempts.push(await getPsiAttempt(url, psiKey, thresholds));
+    const psi = await getPsi(url, psiKey);
+    attempts.push(await getPsiAttempt(psi, url, thresholds));
 
     // Second PSI attempt
     if (!attempts[0].threshold) {
-      attempts.push(await getPsiAttempt(url, psiKey, thresholds, 2));
+      const psiTwo = await getPsi(url, psiKey);
+      attempts.push(await getPsiAttempt(psiTwo, url, thresholds, 2));
     }
 
     let body = COMMENT_HEADER;

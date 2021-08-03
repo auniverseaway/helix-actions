@@ -65,11 +65,8 @@ async function getPsi(url, key) {
 };
 
   
-async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
-  // Get the PSI response from the library
-  const psi = await getPsi(url, psiKey);
+function getPsiAttempt(psi, url, thresholds, attemptNo) {
   let attempt = {};
-
   // If there are results, compare and format them
   if (psi.results) {
     // See if thresholds have been met
