@@ -10,6 +10,9 @@
  * governing permissions and limitations under the License.
  */
 const { context, ALPN_HTTP1_1, createUrl } = require('@adobe/helix-fetch');
+const buildBody = require('./buildBody');
+const getColor = require('./getColor');
+
 const { fetch } = context({ alpnProtocols: [ALPN_HTTP1_1] });
 
 const PSI_URL = 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed';
@@ -20,6 +23,16 @@ function roundDecimal(value, amount) {
 
 function msToS(value) {
     return value / 1000.0;
+}
+
+function formatResults({ lh, fcp, lcp, tbt, cls }) {
+  return {
+      lh: { label: 'LH', value: lh, color: getColor('lh', lh, true) },
+      fcp: { label: 'FCP', value: fcp, color: getColor('fcp', fcp) },
+      lcp: { label: 'LCP', value: lcp, color: getColor('lcp', lcp) },
+      tbt: { label: 'TBT', value: tbt, color: getColor('tbt', tbt) },
+      cls: { label: 'CLS', value: cls, color: getColor('cls', cls) },
+  };
 }
 
 function buildQuery(url, key) {
@@ -51,10 +64,41 @@ async function getPsi(url, key) {
     return json.error;
 };
 
+  
+async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
+  // Get the PSI response from the library
+  const psi = await getPsi(url, psiKey);
+  let attempt = {};
+
+  // If there are results, compare and format them
+  if (psi.results) {
+    // See if thresholds have been met
+    if (psi.results.lh >= thresholds.lh &&
+        psi.results.fcp <= thresholds.fcp &&
+        psi.results.lcp <= thresholds.lcp &&
+        psi.results.tbt <= thresholds.tbt &&
+        psi.results.cls <= thresholds.cls) {
+      attempt.threshold = true;
+    }
+    const formatted = formatResults(psi.results);
+    attempt.body = buildBody(url, formatted, attemptNo);
+  }
+  // If there's a message, something died on the PSI side.
+  if (psi.message) {
+    attempt.body = psi.message;
+  }
+  // If there still isn't a body, something else went wrong.
+  if (!attempt.body) {
+    attempt.body = 'Something went wrong.';
+  }
+  return attempt;
+}
+
 module.exports = {
     roundDecimal,
     msToS,
     buildQuery,
     getPsi,
+    getPsiAttempt,
     formatPsi,
 };

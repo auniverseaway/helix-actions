@@ -1,53 +1,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { getPsi } = require('./lib/psi');
-const buildBody = require('./lib/buildBody');
-const getColor = require('./lib/getColor');
+const { getPsiAttempt } = require('./lib/psi');
 
 const COMMENT_HEADER = '# ![Helix](https://raw.githubusercontent.com/auniverseaway/helix-actions/main/helix-logo.svg) Helix Actions';
-
-function formatResults({ lh, fcp, lcp, tbt, cls }) {
-  return {
-    lh: { label: 'LH', value: lh, color: getColor('lh', lh, true) },
-    fcp: { label: 'FCP', value: fcp, color: getColor('fcp', fcp) },
-    lcp: { label: 'LCP', value: lcp, color: getColor('lcp', lcp) },
-    tbt: { label: 'TBT', value: tbt, color: getColor('tbt', tbt) },
-    cls: { label: 'CLS', value: cls, color: getColor('cls', cls) },
-  };
-}
-
-async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
-  // Get the PSI response from the library
-  const psi = await getPsi(url, psiKey);
-  let attempt = {};
-
-  console.log(psi.results);
-  console.log(thresholds);
-
-  // If there are results, compare and format them
-  if (psi.results) {
-    // See if thresholds have been met
-    if (psi.results.lh >= thresholds.lh &&
-        psi.results.fcp <= thresholds.fcp &&
-        psi.results.lcp <= thresholds.lcp &&
-        psi.results.tbt <= thresholds.tbt &&
-        psi.results.cls <= thresholds.cls) {
-      attempt.threshold = true;
-    }
-    const formatted = formatResults(psi.results);
-    attempt.body = buildBody(url, formatted, attemptNo);
-  }
-  // If there's a message, something died on the PSI side.
-  if (psi.message) {
-    attempt.body = psi.message;
-  }
-  // If there still isn't a body, something else went wrong.
-  if (!attempt.body) {
-    attempt.body = 'Something went wrong.';
-  }
-  console.log(attempt);
-  return attempt;
-}
 
 async function run() {
   try {
@@ -77,9 +32,6 @@ async function run() {
 
     // First PSI attempt
     attempts.push(await getPsiAttempt(url, psiKey, thresholds));
-
-    console.log(attempts[0]);
-    console.log(attempts[0].threshold);
 
     // Second PSI attempt
     if (!attempts[0].threshold) {
