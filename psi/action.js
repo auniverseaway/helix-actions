@@ -6,7 +6,7 @@ const getColor = require('./lib/getColor');
 
 const COMMENT_HEADER = '# ![Helix](https://raw.githubusercontent.com/auniverseaway/helix-actions/main/helix-logo.svg) Helix Actions';
 
-function formatResults(lh, fcp, lcp, tbt, cls) {
+function formatResults({ lh, fcp, lcp, tbt, cls }) {
   return {
     lh: { label: 'LH', value: lh, color: getColor('lh', lh, true) },
     fcp: { label: 'FCP', value: fcp, color: getColor('fcp', fcp) },
