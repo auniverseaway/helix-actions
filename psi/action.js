@@ -32,7 +32,6 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
       attempt.threshold = true;
     }
     const formatted = formatResults(psi.results);
-    console.log(formatted);
     attempt.body = buildBody(url, formatted, attemptNo);
   }
   // If there's a message, something died on the PSI side.
@@ -58,7 +57,8 @@ async function run() {
     const { ref } = github.context.payload.pull_request.head;
     const { name } = github.context.payload.pull_request.head.repo;
     const { login } = github.context.payload.pull_request.head.user;
-    const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
+    const url = 'https://www.adobe.com/';
+    // const url = `https://${ref}--${name}--${login}.hlx3.page${relativeUrl}`;
 
     // Get thresholds of failure
     const thresholds = {
@@ -90,8 +90,7 @@ async function run() {
 
     // Setup comment details
     const issue_number = github.context.payload.pull_request.number;
-    const owner = github.context.repo.owner;
-    const repo = github.context.repo.repo;
+    const { owner, repo } = github.context.repo;
     const comment = octokit.rest.issues.createComment({ owner, repo, issue_number, body });
 
   } catch (error) {
