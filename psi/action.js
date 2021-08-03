@@ -20,6 +20,10 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   // Get the PSI response from the library
   const psi = await getPsi(url, psiKey);
   let attempt = {};
+
+  console.log(psi);
+  console.log(thresholds);
+
   // If there are results, compare and format them
   if (psi.results) {
     // See if thresholds have been met
@@ -32,6 +36,7 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
     }
     const formatted = formatResults(psi.results);
     attempt.body = buildBody(url, formatted, attemptNo);
+    console.log(attempt);
   }
   // If there's a message, something died on the PSI side.
   if (psi.message) {
@@ -41,6 +46,7 @@ async function getPsiAttempt(url, psiKey, thresholds, attemptNo) {
   if (!attempt.body) {
     attempt.body = 'Something went wrong.';
   }
+
   return attempt;
 }
 
@@ -89,9 +95,9 @@ async function run() {
 
     // Setup comment details
     const issue_number = github.context.payload.pull_request.number;
-    const { repo } = github.context;
-    const { owner } = repo;
-    // const comment = octokit.rest.issues.createComment({ owner, repo, issue_number, body });
+    const owner = github.context.repo.owner;
+    const repo = github.context.repo.repo;
+    const comment = octokit.rest.issues.createComment({ owner, repo, issue_number, body });
 
   } catch (error) {
     core.setFailed(error.message);
