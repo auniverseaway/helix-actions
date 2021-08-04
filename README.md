@@ -1,4 +1,4 @@
-# helix-actions
+# helix-actions are awesome.
 Github Actions for Helix websites.
 
 ## Helix PSI
